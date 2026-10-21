@@ -1,16 +1,25 @@
 using UnityEngine;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static UIManager Instance { get; private set; }
+
+    public TMP_Text scoreCountText;
+    public TMP_Text collectiblesCountText;
     void Start()
     {
-        
+        Instance = this;
     }
-
-    // Update is called once per frame
-    void Update()
+    public void UpdateScore(int score)
     {
         
+        scoreCountText.text = "Pontuação: " + score;
+    
+    }
+
+    public void UpdateCollectibles(int collectibles)
+    {
+        collectiblesCountText.text =  ScoreManager.Instance.currentCollectibles + "/" + ScoreManager.Instance.requiredCollectibles;
     }
 }

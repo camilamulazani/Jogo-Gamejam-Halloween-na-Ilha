@@ -16,12 +16,23 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver) 
+        {
+            isFlying = false;
+            return;
+        }
+
         isFlying = Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
  
     }
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver) 
+        {
+            return;
+        }
+
         if (isFlying)
         {
             rb.AddForce(Vector2.up * liftForce);

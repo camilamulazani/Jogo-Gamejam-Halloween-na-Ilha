@@ -2,15 +2,28 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public enum CollectibleType
     {
-        
+        Score,
+        Collectible
     }
 
-    // Update is called once per frame
-    void Update()
+    public CollectibleType collectibleType;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (!other.gameObject.CompareTag("Player"))
+        return;
+
+        if (collectibleType == CollectibleType.Score)
+        {
+            ScoreManager.Instance.AddScore();
+        }
+        else if (collectibleType == CollectibleType.Collectible)
+        {
+            ScoreManager.Instance.AddCollectible();
+        }
+
+        Destroy(gameObject);
     }
 }

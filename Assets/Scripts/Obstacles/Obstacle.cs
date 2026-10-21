@@ -7,6 +7,11 @@ public class WorldScroller : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+        {
+            return;
+        }
+        
         transform.position +=
             Vector3.left * speed * Time.deltaTime;
 
