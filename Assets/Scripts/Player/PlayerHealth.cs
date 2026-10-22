@@ -14,13 +14,15 @@ public class PlayerHealth : MonoBehaviour
     private LifeHUD lifeHUD;
     private SpriteRenderer spriteRenderer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        
         lifeHUD = GameObject.Find("LifeHUD").GetComponent<LifeHUD>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
         
         if (lifeHUD != null)
         {

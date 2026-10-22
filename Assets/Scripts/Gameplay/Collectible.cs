@@ -12,18 +12,18 @@ public class Collectible : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("Player"))
-        return;
-
-        if (collectibleType == CollectibleType.Score)
+        if (other.gameObject.CompareTag("Player"))
         {
-            ScoreManager.Instance.AddScore();
-        }
-        else if (collectibleType == CollectibleType.Collectible)
-        {
-            ScoreManager.Instance.AddCollectible();
-        }
+            if (collectibleType == CollectibleType.Score)
+            {
+                ScoreManager.Instance.AddScore();
+            }
+            else if (collectibleType == CollectibleType.Collectible)
+            {
+                ScoreManager.Instance.AddCollectible();
+            }
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }

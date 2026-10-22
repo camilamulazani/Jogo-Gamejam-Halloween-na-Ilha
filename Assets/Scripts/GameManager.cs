@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,11 +9,11 @@ public class GameManager : MonoBehaviour
 
 
     private GameObject gameplayUI;
-    public GameObject gameOverScreen; 
+    
     void Start()
     {
         Instance = this;
-        gameOverScreen.SetActive(false);
+
         gameplayUI = GameObject.Find("GameplayUI");
         if (gameplayUI != null)
         {
@@ -35,7 +36,21 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
 
         gameplayUI.SetActive(false);
-        gameOverScreen.SetActive(true);
+        UIManager.Instance.GameOver();
 
     }
+
+    public void CheckVictory()
+    {
+        if (ScoreManager.Instance.currentScore >= ScoreManager.Instance.requiredScore)
+        {
+            SceneManager.LoadScene("VictoryScene");
+        }
+        else if (ScoreManager.Instance.currentScore >= ScoreManager.Instance.requiredScore)
+        {
+            SceneManager.LoadScene("DefeatScene");
+        }
+    }
+
+
 }
