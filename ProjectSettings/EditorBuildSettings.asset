@@ -6,8 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MenuInicial.unity
+    guid: 9e3c3af55b8b30c4da34e11d77fc8661
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Derrota.unity
+    guid: 3d980270e8a90b74182b3fefb28e4166
+  - enabled: 1
+    path: Assets/Scenes/Gameplay.unity
+    guid: b357b0f71bfacc8458025d30be799efa
+  - enabled: 1
+    path: "Assets/Scenes/Vit\xF3ria.unity"
+    guid: caa5f067257beff4d9c30efeef847d93
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
