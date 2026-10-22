@@ -1457,6 +1457,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CollectibleSpawner
   scorePointPrefab: {fileID: 7941521116882229728, guid: 4d4b6dd6c9ef6304fae3c907b474ef11, type: 3}
   collectiblePrefab: {fileID: 7825363424636615279, guid: 22fef6596b7db974da7a497ea3bf9af1, type: 3}
+  reverseControlsPrefab: {fileID: 5580839649375442959, guid: 1b9233e144827e64a8217b6f2f15bd11, type: 3}
+  shieldPrefab: {fileID: 5073345098554832000, guid: f3bb364b6ee270e4a8db0b52f21f6e8a, type: 3}
+  restoreHealthPrefab: {fileID: 5421159101121928385, guid: 120bd264027ec8948b91c3940554ad84, type: 3}
   spawnPoint: {fileID: 1936477499}
   scorePointsSpawnInterval: 2
   scorePointsPerPattern: 5
@@ -1799,7 +1802,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233287519}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: CheckVictory
+        m_MethodName: CheckWinCondition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

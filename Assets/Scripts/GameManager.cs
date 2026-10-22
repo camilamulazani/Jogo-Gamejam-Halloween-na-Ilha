@@ -40,17 +40,31 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void CheckVictory()
+    public void CheckWinCondition()
     {
-        if (ScoreManager.Instance.currentScore >= ScoreManager.Instance.requiredScore)
+        if (ScoreManager.Instance.currentScore >= ScoreManager.Instance.requiredScore && ScoreManager.Instance.currentCollectibles >= ScoreManager.Instance.requiredCollectibles)
         {
             SceneManager.LoadScene("VictoryScene");
+            Debug.Log("Victory!");
         }
-        else if (ScoreManager.Instance.currentScore >= ScoreManager.Instance.requiredScore)
+
+        else
         {
             SceneManager.LoadScene("DefeatScene");
+            Debug.Log("Defeat!");
         }
     }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Gameplay");
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }   
+
 
 
 }

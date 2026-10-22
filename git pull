@@ -1,0 +1,14 @@
+[1mdiff --git a/ProjectSettings/EditorBuildSettings.asset b/ProjectSettings/EditorBuildSettings.asset[m
+[1mindex d712d2d..994a390 100644[m
+[1m--- a/ProjectSettings/EditorBuildSettings.asset[m
+[1m+++ b/ProjectSettings/EditorBuildSettings.asset[m
+[36m@@ -8,6 +8,9 @@[m [mEditorBuildSettings:[m
+   - enabled: 1[m
+     path: Assets/Scenes/SampleScene.unity[m
+     guid: 8c9cfa26abfee488c85f1582747f6a02[m
+[32m+[m[32m  - enabled: 1[m
+[32m+[m[32m    path: Assets/Scenes/Gameplay.unity[m
+[32m+[m[32m    guid: b357b0f71bfacc8458025d30be799efa[m
+   m_configObjects:[m
+     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}[m
+   m_UseUCBPForAssetBundles: 0[m

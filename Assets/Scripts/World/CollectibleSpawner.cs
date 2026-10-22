@@ -4,6 +4,9 @@ public class CollectibleSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject scorePointPrefab;
     [SerializeField] private GameObject collectiblePrefab;
+    [SerializeField] private GameObject reverseControlsPrefab;
+    [SerializeField] private GameObject shieldPrefab;
+    [SerializeField] private GameObject restoreHealthPrefab;
 
     [SerializeField] private Transform spawnPoint;
 
@@ -25,6 +28,10 @@ public class CollectibleSpawner : MonoBehaviour
     [SerializeField] private float CollectibleMinSpawnInterval = 8f;
     [SerializeField] private float CollectibleMaxSpawnInterval = 12f;
 
+    [Header("Special Collectible Spawn Settings")]
+    [SerializeField] private float specialMinSpawnInterval = 18f;
+    [SerializeField] private float specialMaxSpawnInterval = 25f;
+
 
     [Header("Spawn Area")]
     [SerializeField] private float minY = -3f;
@@ -33,12 +40,15 @@ public class CollectibleSpawner : MonoBehaviour
     private float scorePointsTimer;
     private float collectibleTimer;
     private float nextCollectibleSpawn;
+    private float specialCollectibleTimer;
+    private float nextSpecialCollectibleSpawn;
 
 
 
     private void Start()
     {
         ScheduleNextCollectible();
+        ScheduleNextSpecialCollectible();
     }
 
     private void Update()
@@ -48,6 +58,7 @@ public class CollectibleSpawner : MonoBehaviour
 
         UpdateScorePointsSpawner();
         UpdateCollectibleSpawner();
+        UpdateSpecialCollectibleSpawner();
     }
 
     private void UpdateScorePointsSpawner()
@@ -70,6 +81,18 @@ public class CollectibleSpawner : MonoBehaviour
             SpawnCollectible();
             collectibleTimer = 0f;
             ScheduleNextCollectible();
+        }
+    }
+
+    private void UpdateSpecialCollectibleSpawner()
+    {
+        specialCollectibleTimer += Time.deltaTime;
+
+        if (specialCollectibleTimer >= nextSpecialCollectibleSpawn)
+        {
+            SpawnSpecialCollectible();
+            specialCollectibleTimer = 0f;
+            ScheduleNextSpecialCollectible();
         }
     }
 
@@ -115,16 +138,54 @@ public class CollectibleSpawner : MonoBehaviour
 
     private void SpawnCollectible()
     {
-        if (collectiblePrefab == null || spawnPoint == null)
+        SpawnCollectible(collectiblePrefab, CollectibleType.Collectible);
+    }
+
+    private void SpawnSpecialCollectible()
+    {
+        switch (Random.Range(0, 3))
+        {
+            case 0:
+                SpawnCollectible(reverseControlsPrefab, CollectibleType.ReverseControls);
+                break;
+            case 1:
+                SpawnCollectible(shieldPrefab, CollectibleType.Shield);
+                break;
+            default:
+                SpawnCollectible(restoreHealthPrefab, CollectibleType.RestoreHealth);
+                break;
+        }
+    }
+
+    private void SpawnCollectible(GameObject prefab, CollectibleType type)
+    {
+        if (prefab == null || spawnPoint == null)
+        {
+            Debug.LogWarning($"Cannot spawn {type}: assign its prefab and the spawn point in the Inspector.", this);
             return;
+        }
 
         Vector3 position = new Vector3(spawnPoint.position.x, Random.Range(minY, maxY), spawnPoint.position.z);
 
-        Instantiate(collectiblePrefab, position, collectiblePrefab.transform.rotation);
+        GameObject spawnedCollectible = Instantiate(prefab, position, prefab.transform.rotation);
+        Collectible collectible = spawnedCollectible.GetComponent<Collectible>();
+        if (collectible == null)
+        {
+            Debug.LogError("The collectible prefab must have a Collectible component.", spawnedCollectible);
+            Destroy(spawnedCollectible);
+            return;
+        }
+
+        collectible.collectibleType = type;
     }
 
     private void ScheduleNextCollectible()
     {
         nextCollectibleSpawn = Random.Range(CollectibleMinSpawnInterval, CollectibleMaxSpawnInterval);
+    }
+
+    private void ScheduleNextSpecialCollectible()
+    {
+        nextSpecialCollectibleSpawn = Random.Range(specialMinSpawnInterval, specialMaxSpawnInterval);
     }
 }

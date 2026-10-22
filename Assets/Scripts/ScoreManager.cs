@@ -21,28 +21,15 @@ public class ScoreManager : MonoBehaviour
     {
         currentScore ++;
         UpdateUI();
-        CheckWinCondition();
     }
 
     public void AddCollectible()
     {
         currentCollectibles++;
         UpdateUI();
-        CheckWinCondition();
-    }
-
-    private void CheckWinCondition()
-    {
-        if (currentScore >= requiredScore && currentCollectibles >= requiredCollectibles)
+        if (currentCollectibles >= requiredCollectibles)
         {
-            Debug.Log("Venceu uouiuuu :)");
-            // TODO: IMPLEMENTAR BAGULHO DE VITORIA
-        }
-
-        if (currentScore <= requiredScore && currentCollectibles >= requiredCollectibles)
-        {
-            Debug.Log("Perdeu uouiuuu :(");
-            // TODO: IMPLEMENTAR BAGULHO DE DERROTA
+            GameManager.Instance.GameOver();
         }
     }
 

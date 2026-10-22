@@ -2,16 +2,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+
     public float liftForce = 20f;
     public float maxRiseSpeed = 5f;
     public float maxFallSpeed = -5f;
+    [SerializeField] private float reverseControlsDuration = 8f;
 
     private Rigidbody2D rb;
     [SerializeField] private bool isFlying;
+    private float reverseControlsTimer;
+    private bool controlsReversed;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Instance = this;
     }
 
     private void Update()
@@ -20,6 +26,15 @@ public class PlayerController : MonoBehaviour
         {
             isFlying = false;
             return;
+        }
+
+        if (controlsReversed)
+        {
+            reverseControlsTimer -= Time.deltaTime;
+            if (reverseControlsTimer <= 0f)
+            {
+                controlsReversed = false;
+            }
         }
 
         isFlying = Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
@@ -35,13 +50,17 @@ public class PlayerController : MonoBehaviour
 
         if (isFlying)
         {
-            rb.AddForce(Vector2.up * liftForce);
+            rb.AddForce((controlsReversed ? Vector2.down : Vector2.up) * liftForce);
         }
 
         Vector2 velocity = rb.linearVelocity;
-
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, maxFallSpeed, maxRiseSpeed));
-
+        velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, maxRiseSpeed);
         rb.linearVelocity = velocity;
+    }
+
+    public void ReverseControls()
+    {
+        controlsReversed = true;
+        reverseControlsTimer = reverseControlsDuration;
     }
 }
