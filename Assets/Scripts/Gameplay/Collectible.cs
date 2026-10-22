@@ -1,29 +1,16 @@
 using UnityEngine;
 
+public enum CollectibleType {Score, Collectible, ReverseControls, Shield, RestoreHealth}
+
 public class Collectible : MonoBehaviour
 {
-    public enum CollectibleType
-    {
-        Score,
-        Collectible
-    }
-
     public CollectibleType collectibleType;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.CompareTag("Player"))
-        return;
-
-        if (collectibleType == CollectibleType.Score)
+        if (other.gameObject.CompareTag("Obstacle"))
         {
-            ScoreManager.Instance.AddScore();
+            Destroy(gameObject);
         }
-        else if (collectibleType == CollectibleType.Collectible)
-        {
-            ScoreManager.Instance.AddCollectible();
-        }
-
-        Destroy(gameObject);
     }
 }

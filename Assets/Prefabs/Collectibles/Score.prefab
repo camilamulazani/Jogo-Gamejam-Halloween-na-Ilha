@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3891697021899414205}
   - component: {fileID: 996490665063664589}
   - component: {fileID: 5013280204541883074}
+  - component: {fileID: 713812936845120002}
   m_Layer: 0
   m_Name: Score
   m_TagString: Collectible
@@ -152,7 +153,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 7941521116882229728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c4af8e956e7c0d42961f04f48e55b6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0648ebeba28f54145a23f7c36ef44aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldScroller
   speed: 6
+  speedChangeInterval: 8
+  minSpeed: 6
+  maxSpeed: 12
+  speedChangeRate: 0.5
+--- !u!50 &713812936845120002
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7941521116882229728}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

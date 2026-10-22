@@ -7,8 +7,8 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
 
     [SerializeField] private float spawnInterval = 2f;
-    [SerializeField] private float minY = -3f;
-    [SerializeField] private float maxY = 3f;
+    [SerializeField] private float minY = -2f;
+    [SerializeField] private float maxY = 2f;
 
     private float timer;
 

@@ -417,8 +417,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -618.01385, y: 274}
-  m_SizeDelta: {x: 473.9723, y: 100}
+  m_AnchoredPosition: {x: -502.22647, y: 274}
+  m_SizeDelta: {x: 705.547, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &233287517
 GameObject:
@@ -465,7 +465,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c653476ebb10a34448c04ff4bdf8b8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  gameOverScreen: {fileID: 1434355598}
 --- !u!114 &233287520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,7 +477,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7510a0402d479a04a8b56927b0d85698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
+  currentScore: 0
   currentCollectibles: 0
+  requiredScore: 100
   requiredCollectibles: 7
 --- !u!1 &417562569
 GameObject:
@@ -949,6 +950,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68aab262b1841d489cdb83b8622d1c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  gameOverScreen: {fileID: 1434355598}
+  FinalscoreCountText: {fileID: 1348262044}
+  FinalcollectiblesCountText: {fileID: 1671919111}
   scoreCountText: {fileID: 1139607571}
   collectiblesCountText: {fileID: 417562571}
 --- !u!1 &876862797
@@ -1394,8 +1398,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1052727032}
   - component: {fileID: 1052727031}
+  - component: {fileID: 1052727033}
   m_Layer: 0
-  m_Name: ObstacleSpawner
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1438,6 +1443,31 @@ Transform:
   - {fileID: 1936477499}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1052727033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052727030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e52873f1b08a9448aa254349025abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectibleSpawner
+  scorePointPrefab: {fileID: 7941521116882229728, guid: 4d4b6dd6c9ef6304fae3c907b474ef11, type: 3}
+  collectiblePrefab: {fileID: 7825363424636615279, guid: 22fef6596b7db974da7a497ea3bf9af1, type: 3}
+  reverseControlsPrefab: {fileID: 5580839649375442959, guid: 1b9233e144827e64a8217b6f2f15bd11, type: 3}
+  shieldPrefab: {fileID: 5073345098554832000, guid: f3bb364b6ee270e4a8db0b52f21f6e8a, type: 3}
+  restoreHealthPrefab: {fileID: 5421159101121928385, guid: 120bd264027ec8948b91c3940554ad84, type: 3}
+  spawnPoint: {fileID: 1936477499}
+  scorePointsSpawnInterval: 2
+  scorePointsPerPattern: 5
+  scorePointsSpacing: 2
+  CollectibleMinSpawnInterval: 8
+  CollectibleMaxSpawnInterval: 12
+  minY: -3
+  maxY: 3
 --- !u!1 &1079303563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,8 +1539,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000103, y: 0}
-  m_SizeDelta: {x: 473.97, y: 100}
+  m_AnchoredPosition: {x: -0.00075531006, y: 0}
+  m_SizeDelta: {x: 705.55, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1139607571
 MonoBehaviour:
@@ -1532,9 +1562,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Pontos totais
-
-'
+  m_text: "Pontua\xE7\xE3o: XXX"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1771,7 +1799,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1272128549}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 233287519}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CheckWinCondition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1272128549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2272,8 +2312,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000022888, y: 405}
-  m_SizeDelta: {x: 851.813, y: 220.0201}
+  m_AnchoredPosition: {x: -0.000030518, y: 389.79}
+  m_SizeDelta: {x: 1626.2827, y: 220.0201}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1555251941
 MonoBehaviour:
@@ -2295,7 +2335,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'PERDEU '
+  m_text: FIM DE JOGO!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2322,8 +2362,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 200
-  m_fontSizeBase: 200
+  m_fontSize: 170
+  m_fontSizeBase: 170
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2387,7 +2427,7 @@ GameObject:
   - component: {fileID: 1671919112}
   - component: {fileID: 1671919111}
   m_Layer: 5
-  m_Name: CollectablesText
+  m_Name: CollectiblesText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2736,12 +2776,12 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 572481027}
   - {fileID: 622045404}
   - {fileID: 933121733}
   - {fileID: 1275229820}
   - {fileID: 1052727032}
   - {fileID: 700796907}
-  - {fileID: 572481027}
   - {fileID: 233287518}
   - {fileID: 5658707279406420374}
   - {fileID: 6275481005517607828}
