@@ -28,7 +28,7 @@ public class PlayerCollision : MonoBehaviour
                     ScoreManager.Instance.AddCollectible();
                     break;
                 case CollectibleType.ReverseControls:
-                    PlayerController.Instance.ReverseControls();
+                    PlayerController.Instance.ActivateInvertedMovement();
                     break;
                 case CollectibleType.Shield:
                     PlayerHealth.Instance.ActivateShield();

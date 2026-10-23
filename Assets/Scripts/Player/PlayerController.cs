@@ -12,16 +12,20 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private bool isFlying;
     private float reverseControlsTimer;
-    private bool controlsReversed;
+    public bool controlsReversed;
 
-    private void Start()
+    [SerializeField] private Animator animator;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         Instance = this;
     }
 
     private void Update()
     {
+        
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver) 
         {
             isFlying = false;
@@ -31,36 +35,88 @@ public class PlayerController : MonoBehaviour
         if (controlsReversed)
         {
             reverseControlsTimer -= Time.deltaTime;
+
             if (reverseControlsTimer <= 0f)
             {
                 controlsReversed = false;
+
+                // Zera apenas a velocidade vertical.
+                Vector2 velocity = rb.linearVelocity;
+                velocity.y = 0f;
+                rb.linearVelocity = velocity;
             }
         }
 
         isFlying = Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
- 
+
+        UpdateAnimation();
+
     }
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance != null && GameManager.Instance.IsGameOver) 
+        if (GameManager.Instance != null &&
+         GameManager.Instance.IsGameOver)
         {
             return;
         }
 
-        if (isFlying)
+        Vector2 direction;
+
+        if (controlsReversed)
         {
-            rb.AddForce((controlsReversed ? Vector2.down : Vector2.up) * liftForce);
+            // Mecânica alternativa:
+            // sobe sem pressionar e desce ao pressionar.
+            direction = isFlying ? Vector2.down : Vector2.up;
+        }
+        else
+        {
+            // Movimentação normal:
+            // sobe ao pressionar.
+            direction = isFlying ? Vector2.up : Vector2.zero;
+        }
+
+
+        if (direction != Vector2.zero)
+        {
+            rb.AddForce(direction * liftForce);
         }
 
         Vector2 velocity = rb.linearVelocity;
-        velocity.y = Mathf.Clamp(velocity.y, maxFallSpeed, maxRiseSpeed);
+
+        velocity.y = Mathf.Clamp(
+            velocity.y,
+            maxFallSpeed,
+            maxRiseSpeed
+        );
+
         rb.linearVelocity = velocity;
     }
 
-    public void ReverseControls()
+
+
+    public void ActivateInvertedMovement()
     {
         controlsReversed = true;
         reverseControlsTimer = reverseControlsDuration;
     }
+
+    public void DeactivateInvertedMovement()
+    {
+        controlsReversed = false;
+
+        Vector2 velocity = rb.linearVelocity;
+        velocity.y = 0f;
+        rb.linearVelocity = velocity;
+    }
+
+    public bool IsControlsReversed()
+    {
+        return controlsReversed;
+    }
+    private void UpdateAnimation()
+    {
+        animator.SetBool("ControlsReversed", controlsReversed);
+    }
+
 }

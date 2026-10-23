@@ -36,6 +36,13 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (PlayerController.Instance != null &&
+        PlayerController.Instance.IsControlsReversed())
+        {
+            return;
+        }
+
+
         if (isInvincible)
         {
             return;

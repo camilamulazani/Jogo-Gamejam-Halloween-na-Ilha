@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3453534793978795980}
   - component: {fileID: 4953506474701893167}
   - component: {fileID: 2108018029390572521}
-  - component: {fileID: 3091539657441823957}
+  - component: {fileID: 7937853436535114097}
   m_Layer: 0
   m_Name: BoiTata
   m_TagString: Untagged
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 5580839649375442959}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.06, y: -1.8737, z: 0}
-  m_LocalScale: {x: 0.47008392, y: 0.67066854, z: 0.5048694}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
-  m_Color: {r: 1, g: 0.86989117, b: 0, a: 1}
+  m_Sprite: {fileID: 6096114335596374883, guid: 6af6d2c70e8fc044cabc37561b58e7bb, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -152,7 +152,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &3091539657441823957
+--- !u!70 &7937853436535114097
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,5 +187,5 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2.0000002}
+  m_Size: {x: 1.26, y: 1.84}
   m_Direction: 0
